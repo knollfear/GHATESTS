@@ -69,7 +69,7 @@ except:
             {
                 'targetGroupArn': constants.TARGET_GROUP_ARN,
                 'containerName': constants.CONTAINER_NAME,
-                'containerPort': 5001
+                'containerPort': 80
             },
         ],
         desiredCount=1,
