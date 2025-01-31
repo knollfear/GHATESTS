@@ -12,4 +12,4 @@ def get():
     print("GOT A REQUEST FOR '/change'")
     return Div(P('Hello EVERYONE'), hx_get="/")
 
-serve(80)
+serve(port=80)

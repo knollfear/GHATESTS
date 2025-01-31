@@ -68,7 +68,6 @@ except:
         loadBalancers=[
             {
                 'targetGroupArn': constants.TARGET_GROUP_ARN,
-                'loadBalancerName': 'gha-alb',
                 'containerName': constants.CONTAINER_NAME,
                 'containerPort': 5001
             },
