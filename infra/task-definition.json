@@ -12,15 +12,16 @@
           "protocol": "tcp"
         }
       ],
-      "essential": true
+      "essential": true,
+      "environment": [
+        {
+          "name": "DBConn",
+          "value": "sqlite:///users.db"
+        }
+      ]
     }
   ],
-  "environment": [
-    {
-        "name": "DBConn",
-        "value": "sqlite:///users.db"
-    }
-  ],
+
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
   "memory": "512",
