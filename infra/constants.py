@@ -1,5 +1,6 @@
 import os
 
+#Created resources
 ECR_REPOSITORY = os.environ.get("ECR_REPOSITORY") or "ghatest"
 REGION = os.environ.get("AWS_REGION") or "us-east-1"
 ECS_CLUSTER = os.environ.get("ECS_CLUSTER") or "GHA_TEST_CLUSTER"

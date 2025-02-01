@@ -1,0 +1,33 @@
+services:
+
+  db:
+    image: postgres:15.3-alpine3.18
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db:/var/lib/postgresql/data
+      - ./create-db.sql:/docker-entrypoint-initdb.d/create_database.sql
+  web:
+    depends_on:
+      - db
+    build: .
+    environment:
+      DBConn: "postgresql://postgres:postgres@db:5432"
+    ports:
+      - "8000:5001"
+    develop:
+      watch:
+        - action: sync+restart
+          path: app/
+          target: .
+
+networks:
+  db:
+
+volumes:
+  db:
+

@@ -1,0 +1,1 @@
+CREATE DATABASE some_database;
