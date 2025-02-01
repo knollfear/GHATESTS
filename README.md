@@ -16,6 +16,13 @@ will need to run `infra/main.py` to provision the EC repository, ECS cluster and
 manually create a load balancer and target and put that value into  
 
 # Future Needs
+  1. Instrumentation.  CloudWatch alarms could be easily configured to monitor the status of the application and notify when aberrant behavior is detected
+  2. RDS.  There is currently only an in memory DB that is not persistent between deployments.  This should be changed to an RDS instance for production quality deployments.
+  3. Pre Commit Hooks. This should include a running of the integration test suite inside a docker container on the local machine.  This will prevent commits of code that contains defects or regressions
+  4. Dev environment.  A separate workflow with a custom ALB target such as (/pr123) could be configured to be created and deployed on the creation of a PR.  TO prevent unnecessary cloud costs the resources should be deleted when the PR is merged and/or closed.
+  5. Seed data for test suite.  To ensure consistent test runs we need a robust seed script that is alway updated when new data tables are added.
+  6.  
+
 # Testing
 The testing philosophy of this app is the liberal use of "Snapshot" testing as described at
 [the fastHTML docs](https://docs.fastht.ml/api/core.html#fasthtml-tests).  During testing an in memory SQLLite db will 
