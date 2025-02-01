@@ -4,7 +4,7 @@ import data
 app,rt = fast_app()
 data.init()
 setup_toasts(app)
-port = os.environ.get("port") or 5001
+port = int(os.environ.get("port")) or 5001
 @rt('/')
 def get(request):
     print(request.query_params)
