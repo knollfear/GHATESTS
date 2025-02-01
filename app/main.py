@@ -42,5 +42,5 @@ async def post(request, session):
     add_toast(session, f"User #{result.inserted_primary_key[0]} Saved", "success")
     return Button("Save", hx_post="/users" )
 
-print("Serving on port " + port)
+print("Serving on port " + str(port))
 serve(port=port)
