@@ -4,7 +4,7 @@ import data
 app,rt = fast_app()
 data.init()
 setup_toasts(app)
-
+port = os.environ.get("port") or 5001
 @rt('/')
 def get(request):
     print(request.query_params)
@@ -42,5 +42,5 @@ async def post(request, session):
     add_toast(session, f"User #{result.inserted_primary_key[0]} Saved", "success")
     return Button("Save", hx_post="/users" )
 
-
-serve()
+print("Serving on port " + port)
+serve(port=port)
