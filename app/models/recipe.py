@@ -5,18 +5,6 @@ import webcolors
 html_colors = list(webcolors._definitions._CSS3_NAMES_TO_HEX.keys())
 print(html_colors)
 
-def FromFormData(formData):
-    return Recipe(
-        formData["name"],
-        formData["primarycolor"],
-        formData["secondarycolor"],
-        formData["accentcolor"],
-        formData["veil"],
-        formData["triangle"],
-        formData["shawl"],
-        formData["infinity"],
-        formData["notes"],
-    )
 
 class Recipe():
     Name: str
@@ -121,10 +109,10 @@ class Recipe():
             formData["primarycolor"],
             formData["secondarycolor"],
             formData["accentcolor"],
-            formData["veil"] == "on",
-            formData["triangle"] == "on",
-            formData["shawl"] == "on",
-            formData["infinity"] == "om",
+            formData.get("veil") == "on",
+            formData.get("triangle") == "on",
+            formData.get("shawl") == "on",
+            formData.get("infinity") == "on",
             formData["notes"],
         )
 
