@@ -11,6 +11,10 @@ def getHTML():
                         id="editor_pane"
 
                     ),
+                    Div(
+                        hx_get="/scarf/recipe/all",
+                        hx_trigger="load"
+                    ),
                     cls = "column"
                      ),
                     Div(

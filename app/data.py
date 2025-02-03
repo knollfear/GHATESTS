@@ -78,3 +78,13 @@ def add_recipe(recipe: models.recipe.Recipe):
     conn.commit()
 
     return result
+
+def get_recipe(id:int):
+    recipe = conn.execute(Recipe.select().where(Recipe.c.Id == id)).fetchone()
+    print(recipe)
+    return recipe
+
+def get_recipes():
+    recipes = conn.execute(Recipe.select()).fetchall()
+    print(recipes)
+    return recipes

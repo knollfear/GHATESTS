@@ -18,7 +18,7 @@ global_style = Style("""
             display: flex;
             justify-content: space-between;
             margin: 20px auto;
-            max-width: 800px;
+            max-width: 95vw;
             padding: 0 20px;
         }
 
@@ -57,7 +57,7 @@ def get(request):
     print(request.url)
 
 
-    return Title("Scarf Tracker", P(request.query_params), hx_get="/change")
+    return Title("Scarf Tracker", P("Hellow World"), hx_get="/change")
 
 @rt('/change')
 def get():
@@ -117,6 +117,27 @@ async def post(request, session):
     result = data.add_recipe(recipe)
     add_toast(session, f"Recipe #{result.inserted_primary_key[0]} Saved", "success")
     return recipe.Card()
+
+@rt('/scarf/recipe/all')
+def get():
+    results = data.get_recipes()
+    return models.recipe.Recipe.TableFromResults(results)
+
+
+@rt('/scarf/recipe/edit/{id}')
+async def get(id:int):
+    recipe = models.recipe.Recipe.FromFormData(models.recipe.Recipe.ResultToFormData(data.get_recipe(id)))
+
+    return recipe.EditForm()
+
+
+@rt('/scarf/recipe/{id}')
+async def get(id:int):
+    recipe = models.recipe.Recipe.FromFormData(models.recipe.Recipe.ResultToFormData(data.get_recipe(id)))
+
+    return recipe.Card()
+
+
 
 @rt('/scarf/component/color-swatch')
 async def get(request):
