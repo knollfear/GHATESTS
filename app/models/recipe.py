@@ -157,7 +157,7 @@ class Recipe():
                 Label("Infinity", Input(name="infinity", type="checkbox", checked=self.Infinity)),
             ),
             Label("Notes", Input(name="notes", type="textarea", value=self.Notes)),
-            Button("Save", hx_post=f"/scarf/recipe/update/{self.Id}", hx_target="#scarf-card"),
+            Button("Save", hx_patch=f"/scarf/recipe/update/{self.Id}", hx_target="#scarf-card"),
         )
 
     @classmethod
@@ -217,7 +217,8 @@ class Recipe():
                 Button("Edit", hx_get=f"/scarf/recipe/edit/{self.Id}", hx_target="#scarf-card"),
                 Button("Details", hx_get=f"/scarf/recipe/{self.Id}", hx_target="#scarf-card"),
                 )
-            )
+            ),
+            id=f"row-{self.Id}",
         )
 
     @classmethod

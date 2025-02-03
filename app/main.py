@@ -3,6 +3,7 @@ import data
 import models.recipe
 import components.colorswatch
 import pages.dashboard
+import time
 
 tailwind_css = Link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css")
 global_style = Style("""
@@ -52,12 +53,8 @@ port = int(os.environ.get("port")) or 5001
 
 
 @rt('/')
-def get(request):
-    print(request.query_params)
-    print(request.url)
-
-
-    return Title("Scarf Tracker", P("Hellow World"), hx_get="/change")
+def get():
+    return Div("Scarf Tracker", P("Hello World"), hx_get="/change")
 
 @rt('/change')
 def get():
@@ -120,15 +117,24 @@ async def post(request, session):
 
 @rt('/scarf/recipe/all')
 def get():
+    time.sleep(3)
     results = data.get_recipes()
     return models.recipe.Recipe.TableFromResults(results)
 
 
 @rt('/scarf/recipe/edit/{id}')
-async def get(id:int):
+def get(id:int):
     recipe = models.recipe.Recipe.FromFormData(models.recipe.Recipe.ResultToFormData(data.get_recipe(id)))
 
     return recipe.EditForm()
+
+@rt('/scarf/recipe/update/{id}')
+async def patch(request, session):
+    formData = await parse_form(request)
+    recipe = models.recipe.Recipe.FromFormData(formData)
+    data.add_recipe(recipe)
+    add_toast(session, f"Recipe #{formData["id"]} Updated", "success")
+    return recipe.Card()
 
 
 @rt('/scarf/recipe/{id}')

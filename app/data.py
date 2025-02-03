@@ -61,7 +61,7 @@ def add_user(name, email, highscore):
     return result
 
 def add_recipe(recipe: models.recipe.Recipe):
-    query = db.insert(Recipe).values(
+    query = db.update(Recipe).values(
         Name=recipe.Name,
         PrimaryColor=recipe.PrimaryColor,
         SecondaryColor=recipe.SecondaryColor,
@@ -71,7 +71,7 @@ def add_recipe(recipe: models.recipe.Recipe):
         Shawl=recipe.Shawl,
         Infinity=recipe.Infinity,
         Notes=recipe.Notes,
-    )
+    ).where(Recipe.c.Id==recipe.Id)
     engine = db.create_engine(DBConn)
     conn = engine.connect()
     result = conn.execute(query)
