@@ -113,7 +113,7 @@ async def post(request, session):
     recipe = models.recipe.Recipe.FromFormData(formData)
     result = data.add_recipe(recipe)
     add_toast(session, f"Recipe #{result.inserted_primary_key[0]} Saved", "success")
-    return recipe.Card()
+    return Div(recipe.Card())
 
 @rt('/scarf/recipe/all')
 def get():
@@ -135,6 +135,8 @@ async def patch(request, session):
     data.update_recipe(recipe)
     add_toast(session, f"Recipe #{formData["id"]} Updated", "success")
     return recipe.Card()
+
+
 
 
 @rt('/scarf/recipe/{id}')

@@ -34,7 +34,7 @@ class MyAlbCdkAppStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Load the JSON task definition
-        with open("../infra/task-definition.json", "r") as file:
+        with open("task-definition.json", "r") as file:
             task_definition_json = json.load(file)
 
         # Create a VPC
@@ -129,6 +129,7 @@ class MyAlbCdkAppStack(Stack):
             task_definition=task_definition,
             assign_public_ip=True,  # Assign public IP if needed
             desired_count=1,  # Number of tasks to run
+            security_groups=[ecs_security_group],  # Associate the ECS security group
         )
 
         # Create an Application Load Balancer

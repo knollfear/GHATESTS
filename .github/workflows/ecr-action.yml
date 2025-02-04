@@ -94,3 +94,21 @@ jobs:
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: "16"
+    - name: Install Python dependencies and CDK
+      run: |
+        python -m pip install --upgrade pip
+        # install your Python dependencies here
+        npm install -g aws-cdk
+    - name: Deploy to AWS
+      run:
+        cdk synth
+        cdk deploy --require-approval=never

@@ -13,7 +13,8 @@ def getHTML():
                     ),
                     Div(
                         hx_get="/scarf/recipe/all",
-                        hx_trigger="load"
+                        hx_trigger="load, htmx:afterSwap",
+                        id="all-recipes"
                     ),
                     cls = "column"
                      ),

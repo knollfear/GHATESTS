@@ -1,0 +1,29 @@
+{
+  "family": "gha-test-task-definition",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "python-imagename",
+      "image": "040343200390.dkr.ecr.us-east-1.amazonaws.com/ghatest:latest",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "port",
+          "value": "80"
+        }
+      ]
+    }
+  ],
+
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": 256,
+  "memory": 512,
+  "executionRoleArn": "arn:aws:iam::040343200390:role/ecsTaskExecutionRole"
+}
