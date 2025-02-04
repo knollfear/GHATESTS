@@ -22,21 +22,12 @@
           "name": "port",
           "value": "80"
         }
-      ],
-      "logConfiguration": {
-                "logDriver": "awslogs",
-                "options": {
-                    "awslogs-create-group": "true",
-                    "awslogs-group": "awslogs-ghatest",
-                    "awslogs-region": "us-east-1",
-                    "awslogs-stream-prefix": "awslogs-ghatest"
-                }
-            }
+      ]
     }
   ],
 
   "requiresCompatibilities": ["FARGATE"],
-  "cpu": "256",
-  "memory": "512",
+  "cpu": 256,
+  "memory": 512,
   "executionRoleArn": "arn:aws:iam::040343200390:role/ecsTaskExecutionRole"
 }

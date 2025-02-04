@@ -2,7 +2,12 @@ import sqlalchemy as db
 import os
 import models.recipe
 
-DBConn = os.environ.get("DBConn") or "sqlite:///users.db"
+DB_HOST = os.environ.get('DB_HOST', 'localhost')
+DB_PORT = os.environ.get('DB_PORT', '5432')
+DB_USER = os.environ.get('DB_USER', 'postgres')
+DB_PASS = os.environ.get('DB_PASS', 'postgres')
+
+DBConn = os.environ.get("DBConn") or f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}'
 
 engine = db.create_engine(DBConn)
 conn = engine.connect()
@@ -61,6 +66,25 @@ def add_user(name, email, highscore):
     return result
 
 def add_recipe(recipe: models.recipe.Recipe):
+    query = db.insert(Recipe).values(
+        Name=recipe.Name,
+        PrimaryColor=recipe.PrimaryColor,
+        SecondaryColor=recipe.SecondaryColor,
+        AccentColor=recipe.AccentColor,
+        Veil=recipe.Veil,
+        Triangle=recipe.Triangle,
+        Shawl=recipe.Shawl,
+        Infinity=recipe.Infinity,
+        Notes=recipe.Notes,
+    )
+    engine = db.create_engine(DBConn)
+    conn = engine.connect()
+    result = conn.execute(query)
+    conn.commit()
+
+    return result
+
+def update_recipe(recipe: models.recipe.Recipe):
     query = db.update(Recipe).values(
         Name=recipe.Name,
         PrimaryColor=recipe.PrimaryColor,

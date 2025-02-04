@@ -16,7 +16,10 @@ services:
       - db
     build: .
     environment:
-      DBConn: "postgresql://postgres:postgres@db:5432"
+      DB_USER: "postgres"
+      DB_PASS: "postgres"
+      DB_PORT: "5432"
+      DB_HOST: "db"
       port: "5001"
     ports:
       - "8000:5001"

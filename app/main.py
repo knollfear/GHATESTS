@@ -132,7 +132,7 @@ def get(id:int):
 async def patch(request, session):
     formData = await parse_form(request)
     recipe = models.recipe.Recipe.FromFormData(formData)
-    data.add_recipe(recipe)
+    data.update_recipe(recipe)
     add_toast(session, f"Recipe #{formData["id"]} Updated", "success")
     return recipe.Card()
 
