@@ -15,10 +15,6 @@
       "essential": true,
       "environment": [
         {
-          "name": "DBConn",
-          "value": "sqlite:///users.db"
-        },
-        {
           "name": "port",
           "value": "80"
         }

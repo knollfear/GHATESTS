@@ -86,8 +86,8 @@ class MyAlbCdkAppStack(Stack):
         # Create a Fargate Task Definition
         task_definition = ecs.FargateTaskDefinition(
             self, "MyTaskDefinition",
-            cpu=task_definition_json["cpu"],
-            memory_limit_mib=task_definition_json["memory"],
+            cpu=int(task_definition_json["cpu"]),
+            memory_limit_mib=int(task_definition_json["memory"]),
             execution_role=iam.Role.from_role_arn(
                 self, "ExecutionRole",
                 role_arn=task_definition_json["executionRoleArn"]
@@ -110,7 +110,8 @@ class MyAlbCdkAppStack(Stack):
             environment={
                 env["name"]: env["value"]
                 for env in container_definition["environment"]
-            }
+            },
+            logging=ecs.LogDrivers.aws_logs(stream_prefix="CDKLOGS")
         )
 
         # Add the RDS endpoint and credentials to the container environment
@@ -119,6 +120,7 @@ class MyAlbCdkAppStack(Stack):
         container.add_environment("DB_NAME", "mydatabase")
         container.add_environment("DB_USER", "postgres")  # Use the master username
         container.add_secret("DB_PASSWORD", ecs.Secret.from_secrets_manager(db_cluster.secret, "password"))
+        container.add_secret("DB_PASS", ecs.Secret.from_secrets_manager(db_cluster.secret, "password"))
 
         # Create a Fargate service
         fargate_service = ecs.FargateService(
