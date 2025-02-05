@@ -110,5 +110,5 @@ jobs:
         npm install -g aws-cdk
     - name: Deploy to AWS
       run:
-        cdk synth
+        cd my-alb-cdk-app
         cdk deploy --require-approval=never
