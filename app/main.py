@@ -54,12 +54,14 @@ port = int(os.environ.get("port")) or 5001
 
 @rt('/')
 def get():
+    DBVersion = data.get_version()
     return Div(
         "Scarf Tracker",
         P("Hello World"),
         Ul(
             Li("Database Host: " + os.environ.get('DB_HOST', 'localhost')),
-            Li("Github SHA: " + os.environ.get('SHA', 'UNKNOWN'))
+            Li("Github SHA: " + os.environ.get('SHA', 'UNKNOWN')),
+            Li("Database Version: " + DBVersion),
         ),
         hx_get="/change"
     )

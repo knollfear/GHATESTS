@@ -1,12 +1,15 @@
 import sqlalchemy as db
 import os
+
+from sqlalchemy import text
+
 import models.recipe
 
 DB_HOST = os.environ.get('DB_HOST', 'localhost')
 DB_PORT = os.environ.get('DB_PORT', '5432')
 DB_USER = os.environ.get('DB_USER', 'postgres')
 DB_PASS = os.environ.get('DB_PASSWORD', 'postgres')
-DB_NAME = os.environ.get('DB_NAME', 'scarf')
+DB_NAME = os.environ.get('DB_NAME', '')
 
 DBConn = os.environ.get("DBConn") or f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
@@ -48,6 +51,26 @@ def init():
     finally:
         conn.commit()
     print("Init DB Complete")
+
+def get_version():
+    engine = db.create_engine(DBConn)
+    conn = engine.connect()
+    try:
+        r = conn.execute(text("SELECT version()"))
+        v = r.first()
+        print(v[0])
+        return v[0]
+    except Exception as e:
+        print(e)
+        try:
+            r = conn.execute(text("SELECT sqlite_version()"))
+            v = r.first()
+            print(v[0])
+            return v[0]
+        except Exception as e:
+                print(e)
+                return ("UNKNOWN")
+
 
 def get_users():
     users = conn.execute(User.select()).fetchall()
