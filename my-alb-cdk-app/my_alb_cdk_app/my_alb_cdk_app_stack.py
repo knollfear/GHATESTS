@@ -121,6 +121,7 @@ class MyAlbCdkAppStack(Stack):
         container.add_environment("DB_USER", "postgres")  # Use the master username
         container.add_secret("DB_PASSWORD", ecs.Secret.from_secrets_manager(db_cluster.secret, "password"))
         container.add_secret("DB_PASS", ecs.Secret.from_secrets_manager(db_cluster.secret, "password"))
+        container.add_environment("SHA", image_tag)
 
         # Create a Fargate service
         fargate_service = ecs.FargateService(
