@@ -54,7 +54,15 @@ port = int(os.environ.get("port")) or 5001
 
 @rt('/')
 def get():
-    return Div("Scarf Tracker", P("Hello World"), hx_get="/change")
+    return Div(
+        "Scarf Tracker",
+        P("Hello World"),
+        Ul(
+            Li("Database Host: " + os.environ.get('DB_HOST', 'localhost')),
+            Li("Github SHA: " + os.environ.get('SHA', 'UNKNOWN'))
+        ),
+        hx_get="/change"
+    )
 
 @rt('/change')
 def get():

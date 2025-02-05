@@ -34,8 +34,6 @@ Recipe = db.Table('Recipe', metadata,
       )
 
 metadata.create_all(engine)
-print(User.columns.values())
-print(Recipe.columns.values())
 
 
 def init():
