@@ -102,13 +102,13 @@ jobs:
     - name: Set up Node
       uses: actions/setup-node@v3
       with:
-        node-version: "16"
+        node-version: "22"
     - name: Install Python dependencies and CDK
       run: |
         python -m pip install --upgrade pip
         # install your Python dependencies here
         npm install -g aws-cdk
     - name: Deploy to AWS
-      run:
+      run: |
         cd my-alb-cdk-app
         cdk deploy --require-approval=never
